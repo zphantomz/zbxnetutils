@@ -1,0 +1,8 @@
+aiohttp==0.21.5
+chardet==2.3.0
+ply==3.8
+pyasn1==0.1.9
+pycrypto==2.6.1
+pysmi==0.0.7
+pysnmp==4.3.2
+pysnmp-mibs==0.1.6
