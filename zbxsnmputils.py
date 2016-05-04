@@ -150,7 +150,7 @@ def staticvlans_handle(request):
     # bridgeIdx_to_ifIdx = {k: int(v) for k,v in asnmp_functions_res[3].items()}
     ifName = asnmp_functions_res[4]
     ifType = asnmp_functions_res[5]
-
+    ifType[0] = '0'
     for vlan_id, vlan in vlans_name.items():
         vlans_info[vlan_id] = dict()
         # And now the magic!, from a OctetString to a maps of ports
@@ -173,7 +173,7 @@ def staticvlans_handle(request):
                                                ]
         vlans_info[vlan_id]['access_trunks'] = [ifName[bridgeIdx_to_ifIdx[portnum]]
                                                for portnum in vlan_access_port_list
-                                               if not ifType[bridgeIdx_to_ifIdx[portnum]] == '6'
+                                               if not ifType[bridgeIdx_to_ifIdx[portnum]] in ['6', '0']
                                                ]
         # filtered on non-ethernet interfaces
         vlans_info[vlan_id]['tagged_ports'] = [ifName[bridgeIdx_to_ifIdx[portnum]]
@@ -182,7 +182,7 @@ def staticvlans_handle(request):
                                                ]
         vlans_info[vlan_id]['tagged_trunks'] = [ifName[bridgeIdx_to_ifIdx[portnum]]
                                                for portnum in vlan_tagged_port_list
-                                               if not ifType[bridgeIdx_to_ifIdx[portnum]] == '6'
+                                               if not ifType[bridgeIdx_to_ifIdx[portnum]] in ['6', '0']
                                                ]    
     if zbxhost:
         data = []
