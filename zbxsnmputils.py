@@ -89,7 +89,7 @@ def trunkports_handle(request):
        bridgeidx[k] = int(v)
     # bridgeidx = {k: int(v) for k,v in asnmp_functions_res[2].items()}
 
-    snmpdata = [{'#IFINDEX': v, '#IFNAME': ifnameidx[v]} for k, v in bridgeidx.items()
+    snmpdata = [{'{#IFINDEX}': v, '{#IFNAME}': ifnameidx[v]} for k, v in bridgeidx.items()
                  if not iftypeidx[v] == "6"]
     # Zabbix LLD Format
     snmpdata = {'data' : snmpdata}
@@ -214,5 +214,5 @@ app = web.Application()
 app.router.add_route('GET', '/trunkports', trunkports_handle)
 app.router.add_route('GET', '/staticvlans', staticvlans_handle)
 
-web.run_app(app)
+web.run_app(app,host="0.0.0.0",port="8888")
 
